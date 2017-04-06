@@ -1,7 +1,8 @@
 from chatterbot.logic import LogicAdapter
+from chatterbot.logic import BestMatch
 from chatterbot.conversation import Statement
 
-class MyLogicAdapter_1(LogicAdapter):
+class MyLogicAdapter_1(BestMatch):
     def __init__(self, **kwargs):
         super(MyLogicAdapter_1, self).__init__(**kwargs)
 
@@ -10,7 +11,7 @@ class MyLogicAdapter_1(LogicAdapter):
             return True
         else:
             return False
-
+    '''
     def process(self, statement):
         import random
 
@@ -20,3 +21,12 @@ class MyLogicAdapter_1(LogicAdapter):
         selected_statement = Statement('生成器官描述')
 
         return confidence, selected_statement
+    '''
+    def process(self, statement):
+        if ("肝脏" in statement.text) or ("胰腺" in statement.text) or ("肾脏" in statement.text):
+            closest_match = Statement('生成器官描述')
+            closest_match.confidence = 1
+        else:
+            closest_match = self.get(input_statement)
+        
+        return closest_match
