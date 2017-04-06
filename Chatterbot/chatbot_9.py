@@ -1,17 +1,16 @@
 from chatterbot import ChatBot
+import myadp
 
 bot = ChatBot(
     'DefaultBot',
     storage_adapter='chatterbot.storage.JsonFileStorageAdapter',
     logic_adapters=[
         {
-            'import_path': 'chatterbot.logic.BestMatch'
+            'import_path': 'myadp.MyLogicAdapter_1'
         },
-        {
-            'import_path': 'chatterbot.logic.LowConfidenceAdapter',
-            'threshold': 0.65,
-            'default_response': '抱歉，我不太明白你们在说什么。'
-        }
+        #{
+        #    'import_path': 'chatterbot.logic.BestMatch',    
+        #}
     ],
     trainer='chatterbot.trainers.ListTrainer'
 )
@@ -27,7 +26,12 @@ bot.train([
     "你忙吧，我先走了。"
 ])
 
-response = bot.get_response("老板布置的任务要赶紧做啊。")
-print(response)
+
 response = bot.get_response("床前明月光")
+print(response)
+response = bot.get_response("多谢提醒，正要去做呢。")
+print(response)
+response = bot.get_response("肝脏怎么样了？")
+print(response)
+response = bot.get_response("肝脏")
 print(response)
